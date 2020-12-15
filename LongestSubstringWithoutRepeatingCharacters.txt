@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+      int n=s.length();
+      int start=0,m=INT_MIN,i=0;
+         bool visited[128];
+        memset(visited,false,sizeof(visited));
+        for(i=0;i<n;i++){
+            if(visited[(int)s[i]]==false){
+                visited[s[i]]=true;
+            }
+            else{
+                m=max(m,(i-start));
+                while(s[start]!=s[i]){
+                    visited[(int)s[start]]=false;
+                    start++;
+                }
+                start++;
+            }
+        }
+        m=max(m,(i-start));
+        return m;
+    }
+};
