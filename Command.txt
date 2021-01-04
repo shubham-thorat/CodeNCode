@@ -1,0 +1,4 @@
+1) git config --global user.name //Check user name of local system
+2) git config --global user.email //Check user email of our local system
+3) git status   //Tells the status directory
+4) 
