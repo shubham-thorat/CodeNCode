@@ -1,0 +1,54 @@
+
+import util.*;
+class BellNumber
+{   
+    public int [][]table;
+    //Using Bell triangle
+    public int Belltriangle(int n){ //Number of ways to partiton a set of n elemnts
+        table=new int[n+1][n+1];
+        for(int i=0;i<=n;i++){
+            table[i][0]=0;
+            table[0][i]=0;
+        }
+        table[0][0]=1;
+        for(int i=1;i<=n;i++){
+            table[i][1]=table[i-1][i-1];
+            for(int j=2;j<=i;j++){
+                table[i][j]=table[i][j-1] + table[i-1][j-1];
+            }
+        }
+       return table[n][1];
+    }
+    int S(int n,int k){
+        if(n==0 || k==0)
+         return 0;
+        else if(n==k){
+            return 1;
+        }
+        else{
+            return k*S(n-1,k) + S(n-1,k-1);
+        }
+    }
+    public int Bellrecursion(int n){ //Number of ways to partiton a set of n elemnts
+       int num=0;
+       if(n==1 || n==2)
+        return 1;
+       for(int i=1;i<n;i++){
+          num+=S(n-1,i);
+          //System.out.print(num + " ");
+      }
+      //System.out.println("\n");
+      return num;
+    }
+}
+
+//Using recursion
+
+public class Code
+{
+   public static void main(String []args){
+      BellNumber b=new BellNumber();
+      System.out.println(b.Belltriangle(5));
+      System.out.println(b.Bellrecursion(5));
+   }
+}
