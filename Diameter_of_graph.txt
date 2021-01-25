@@ -1,0 +1,68 @@
+//Program to calculate diameter of graph
+#include<bits/stdc++.h>
+using namespace std;
+vector<vector<int>> v(7);  //List representation of graph
+void add_edge(int a,int b)  //Adding edge to graph
+{
+   v[a].push_back(b);
+   v[b].push_back(a);
+}
+void dfs(int a,int b,vector<int> &dp,bool *seen) //Traverse the graph and find length of that node
+{                                                 //from particular node  
+   if(seen[b]==1) return;
+   else{
+       dp[b]=dp[a]+1;
+       seen[b]=1;
+       for(int i=0;i<v[b].size();i++)
+        {  dfs(b,v[b][i],dp,seen);    }
+   }
+}
+int main()
+{
+   
+    int a,b;
+    for(int i=0;i<6;i++){
+         cin>>a>>b;
+         add_edge(a,b);
+    }
+    bool seen[7]; memset(seen,0,sizeof(seen));
+    vector<int> dp(7);
+    seen[0]=1;
+    for(int i=0;i<v[0].size();i++){
+        dfs(0,v[0][i],dp,seen);
+    }
+    int node,len=0;
+    for(int i=1;i<dp.size();i++){
+       if(dp[i]>len){
+           len=dp[i];
+           node=i;
+       }
+    }
+    cout<<"node = "<<node<<" "<<" len= "<<len<<endl;
+      for(auto it:dp){
+          cout<<it<<" ";
+      }
+      cout<<endl;
+    memset(seen,0,sizeof(seen));
+    vector<int> ans(7,0);
+    seen[node]=1;
+    for(int i=0;i<v[node].size();i++){
+        dfs(node,v[node][i],ans,seen);
+    }
+  
+    len=0;
+
+    for(int i=0;i<ans.size();i++){
+        if(ans[i]>len){
+            node=i;
+            len=ans[i];
+        }
+    }
+    
+    cout<<"node = "<<node<<" "<<" len= "<<len<<endl;
+      for(auto it:ans){
+          cout<<it<<" ";
+      }
+      cout<<endl;
+          
+}
